@@ -1,0 +1,155 @@
+import React, { useState } from 'react';
+import { Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+
+const navItems = [
+  { to: '/', label: 'Dashboard' },
+  { to: '/profile', label: 'Profile' },
+  {
+    label: 'Business',
+    children: [
+      { to: '/business/self', label: 'Self' },
+      { to: '/business/team', label: 'Team' },
+    ],
+  },
+  { to: '/registration', label: 'Registration' },
+  { to: '/commission', label: 'Commission' },
+  { to: '/wallet', label: 'Wallet' },
+];
+
+export default function DashboardLayout() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [businessOpen, setBusinessOpen] = useState(false);
+  const { user, logout, isAdmin } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
+  return (
+    <div className="min-h-screen flex bg-slate-50">
+      {/* Sidebar */}
+      <aside
+        className={`fixed lg:static inset-y-0 left-0 z-40 w-64 bg-white/80 backdrop-blur-md border-r border-slate-200 shadow-soft transform transition-transform duration-200 ease-out ${
+          sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+        }`}
+      >
+        <div className="flex flex-col h-full">
+          <div className="p-4 border-b border-slate-200">
+            <h1 className="text-xl font-bold text-primary-700">Umeed</h1>
+            <p className="text-xs text-slate-500 mt-0.5">{user?.memberId}</p>
+          </div>
+          <nav className="flex-1 overflow-y-auto p-3 space-y-1">
+            {navItems.map((item) =>
+              item.children ? (
+                <div key={item.label}>
+                  <button
+                    type="button"
+                    onClick={() => setBusinessOpen((o) => !o)}
+                    className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-600 hover:bg-primary-50 hover:text-primary-700 transition"
+                  >
+                    <span>{item.label}</span>
+                    <svg
+                      className={`w-4 h-4 transition ${businessOpen ? 'rotate-180' : ''}`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  {businessOpen && (
+                    <div className="pl-3 mt-1 space-y-1">
+                      {item.children.map((c) => (
+                        <NavLink
+                          key={c.to}
+                          to={c.to}
+                          className={({ isActive }) =>
+                            `block px-3 py-2 rounded-lg text-sm transition ${
+                              isActive ? 'bg-primary-100 text-primary-700' : 'text-slate-600 hover:bg-slate-100'
+                            }`
+                          }
+                          onClick={() => setSidebarOpen(false)}
+                        >
+                          {c.label}
+                        </NavLink>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  className={({ isActive }) =>
+                    `flex items-center px-3 py-2.5 rounded-lg transition ${
+                      isActive ? 'bg-primary-100 text-primary-700 font-medium' : 'text-slate-600 hover:bg-primary-50 hover:text-primary-700'
+                    }`
+                  }
+                  onClick={() => setSidebarOpen(false)}
+                >
+                  {item.label}
+                </NavLink>
+              )
+            )}
+            {isAdmin && (
+              <NavLink
+                to="/admin"
+                className={({ isActive }) =>
+                  `flex items-center px-3 py-2.5 rounded-lg transition mt-2 border-t border-slate-200 pt-2 ${
+                    isActive ? 'bg-amber-100 text-amber-800' : 'text-slate-600 hover:bg-amber-50'
+                  }`
+                }
+                onClick={() => setSidebarOpen(false)}
+              >
+                Admin
+              </NavLink>
+            )}
+          </nav>
+          <div className="p-3 border-t border-slate-200">
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="w-full flex items-center px-3 py-2.5 rounded-lg text-red-600 hover:bg-red-50 transition"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      {/* Main */}
+      <div className="flex-1 flex flex-col min-w-0">
+        <header className="sticky top-0 z-30 flex items-center gap-4 bg-white/80 backdrop-blur-md border-b border-slate-200 px-4 py-3 lg:px-6">
+          <button
+            type="button"
+            className="lg:hidden p-2 rounded-lg hover:bg-slate-100"
+            onClick={() => setSidebarOpen(true)}
+            aria-label="Menu"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <div className="flex-1" />
+          <span className="text-sm text-slate-600">{user?.name}</span>
+        </header>
+        <main className="flex-1 p-4 lg:p-6 overflow-auto">
+          <Outlet />
+        </main>
+      </div>
+
+      {/* Overlay when sidebar open on mobile */}
+      {sidebarOpen && (
+        <button
+          type="button"
+          className="fixed inset-0 bg-black/30 z-30 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+          aria-label="Close menu"
+        />
+      )}
+    </div>
+  );
+}
