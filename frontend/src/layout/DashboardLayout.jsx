@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { Outlet, NavLink, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const navItems = [
@@ -32,7 +32,7 @@ export default function DashboardLayout() {
     <div className="min-h-screen flex bg-slate-50">
       {/* Sidebar */}
       <aside
-        className={`fixed lg:static inset-y-0 left-0 z-40 w-64 bg-white/80 backdrop-blur-md border-r border-slate-200 shadow-soft transform transition-transform duration-200 ease-out ${
+        className={`fixed lg:static inset-y-0 left-0 z-40 w-64 max-w-[85vw] bg-white/95 backdrop-blur-md border-r border-slate-200 shadow-soft transform transition-transform duration-200 ease-out overflow-y-auto ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
@@ -62,15 +62,17 @@ export default function DashboardLayout() {
           <nav className="flex-1 overflow-y-auto p-3 space-y-1">
             {navItems.map((item) =>
               item.children ? (
-                <div key={item.label}>
+                <div key={item.label} className="min-w-0">
                   <button
                     type="button"
                     onClick={() => setBusinessOpen((o) => !o)}
-                    className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-600 hover:bg-primary-50 hover:text-primary-700 transition"
+                    className="w-full flex items-center justify-between px-3 py-3 min-h-[44px] rounded-lg text-slate-600 hover:bg-primary-50 hover:text-primary-700 transition touch-manipulation"
+                    aria-expanded={businessOpen}
+                    aria-haspopup="true"
                   >
-                    <span>{item.label}</span>
+                    <span className="text-base font-medium truncate">{item.label}</span>
                     <svg
-                      className={`w-4 h-4 transition ${businessOpen ? 'rotate-180' : ''}`}
+                      className={`w-5 h-5 flex-shrink-0 ml-2 transition ${businessOpen ? 'rotate-180' : ''}`}
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -79,14 +81,14 @@ export default function DashboardLayout() {
                     </svg>
                   </button>
                   {businessOpen && (
-                    <div className="pl-3 mt-1 space-y-1">
+                    <div className="pl-3 mt-1 space-y-1 overflow-visible">
                       {item.children.map((c) => (
                         <NavLink
                           key={c.to}
                           to={c.to}
                           className={({ isActive }) =>
-                            `block px-3 py-2 rounded-lg text-sm transition ${
-                              isActive ? 'bg-primary-100 text-primary-700' : 'text-slate-600 hover:bg-slate-100'
+                            `flex items-center px-3 py-3 min-h-[44px] rounded-lg text-base transition touch-manipulation ${
+                              isActive ? 'bg-primary-100 text-primary-700 font-medium' : 'text-slate-600 hover:bg-slate-100 active:bg-slate-200'
                             }`
                           }
                           onClick={() => setSidebarOpen(false)}
@@ -152,7 +154,11 @@ export default function DashboardLayout() {
             </svg>
           </button>
           <div className="flex-1" />
-          <span className="text-sm text-slate-600">{user?.name}</span>
+          <Link to="/">
+            <span className="text-sm text-slate-600 hover:text-primary-600 cursor-pointer transition">
+              {user?.name}
+            </span>
+          </Link>
         </header>
         <main className="flex-1 p-4 lg:p-6 overflow-auto">
           <Outlet />

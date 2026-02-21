@@ -105,7 +105,7 @@ export default function Register() {
               <select
                 value={businessType}
                 onChange={(e) => setBusinessType(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition"
+                className="w-full min-h-[48px] px-4 py-3 text-base rounded-lg border border-slate-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition bg-white touch-manipulation"
               >
                 {BUSINESS_TYPES.map((t) => (
                   <option key={t} value={t}>{t}</option>

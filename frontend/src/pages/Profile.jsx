@@ -12,7 +12,7 @@ export default function Profile() {
     name: '',
     mobile: '',
     address: { street: '', city: '', state: '', pincode: '', country: 'India' },
-    familyDetails: { spouseName: '', children: '', dob: '' },
+    familyDetails: { spouseName: '', children: '', dob: '' , fatherName: '', motherName: ''},
     bankDetails: { accountHolderName: '', bankName: '', accountNumber: '', ifscCode: '', branch: '' },
   });
 
@@ -22,7 +22,7 @@ export default function Profile() {
         name: user.name || '',
         mobile: user.mobile || '',
         address: { street: '', city: '', state: '', pincode: '', country: 'India', ...user.address },
-        familyDetails: { spouseName: '', children: '', dob: '', ...user.familyDetails },
+        familyDetails: { spouseName: '', children: '', dob: '', fatherName: '', motherName: '', ...user.familyDetails },
         bankDetails: { accountHolderName: '', bankName: '', accountNumber: '', ifscCode: '', branch: '', ...user.bankDetails },
       });
     }
@@ -114,6 +114,24 @@ export default function Profile() {
         <div className="bg-white rounded-xl shadow-soft border border-slate-200/80 p-6">
           <h2 className="text-lg font-semibold text-slate-800 mb-4">Family Details</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Father's Name</label>
+              <input
+                type="text"
+                value={form.familyDetails.fatherName || ''}
+                onChange={(e) => handleChange('familyDetails', 'fatherName', e.target.value)}
+                className="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-primary-500 outline-none"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Mother's Name</label>
+              <input
+                type="text"
+                value={form.familyDetails.motherName || ''}
+                onChange={(e) => handleChange('familyDetails', 'motherName', e.target.value)}
+                className="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-primary-500 outline-none"
+              />
+            </div>
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Spouse Name</label>
               <input
