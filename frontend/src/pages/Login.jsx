@@ -31,7 +31,23 @@ export default function Login() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-white to-indigo-50 p-4">
       <div className="w-full max-w-md">
         <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-soft border border-slate-200/80 p-8">
-          <h1 className="text-2xl font-bold text-primary-800 text-center mb-2">Umeed</h1>
+          <div className="p-4 border-b border-slate-200">
+            <div className="flex items-center justify-center">
+
+              {/* Logo */}
+              <img
+                 src="../../images/logo.jpeg"
+                alt="Umeed Logo"
+                className="w-10 h-10 object-contain"
+              />
+              <div className="flex flex-col">
+                <h1 className="text-xl font-bold text-primary-700 leading-none">
+                  UMMED
+                </h1>
+              </div>
+
+            </div>
+          </div>
           <p className="text-slate-600 text-center text-sm mb-6">Sign in with your Member ID</p>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>

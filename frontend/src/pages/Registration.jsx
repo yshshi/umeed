@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import api from '../services/api';
 import { useToast } from '../context/ToastContext';
 
-const BUSINESS_TYPES = ['Retail', 'Wholesale', 'Distribution', 'Franchise', 'Other'];
+const BUSINESS_TYPES = ['Beautician Training', 'Kutir Udhyog', 'Loan Assistance', 'Insurance Awareness', 'Marketing Support', 'Ayurved Focus','Real Estate Guidance','Hospital Support','Tour & Travel','Government Schemes'];
 
 export default function Registration() {
   const [name, setName] = useState('');

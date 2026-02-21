@@ -3,7 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 
-const BUSINESS_TYPES = ['Retail', 'Wholesale', 'Distribution', 'Franchise', 'Other'];
+const BUSINESS_TYPES = ['Beautician Training', 'Kutir Udhyog', 'Loan Assistance', 'Insurance Awareness', 'Marketing Support', 'Ayurved Focus','Real Estate Guidance','Hospital Support','Tour & Travel','Government Schemes'];
 
 export default function Register() {
   const [searchParams] = useSearchParams();
@@ -55,7 +55,7 @@ export default function Register() {
       <div className="w-full max-w-md">
         <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-soft border border-slate-200/80 p-8">
           <h1 className="text-2xl font-bold text-primary-800 text-center mb-2">Create Account</h1>
-          <p className="text-slate-600 text-center text-sm mb-6">Join Umeed Platform</p>
+          <p className="text-slate-600 text-center text-sm mb-6">Join Ummed</p>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Referral Code (optional)</label>

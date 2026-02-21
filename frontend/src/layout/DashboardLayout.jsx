@@ -38,8 +38,26 @@ export default function DashboardLayout() {
       >
         <div className="flex flex-col h-full">
           <div className="p-4 border-b border-slate-200">
-            <h1 className="text-xl font-bold text-primary-700">Umeed</h1>
-            <p className="text-xs text-slate-500 mt-0.5">{user?.memberId}</p>
+            <div className="flex items-center justify-start gap-3">
+
+              {/* Logo */}
+              <img
+                 src="../../images/logo.jpeg"
+                alt="Umeed Logo"
+                className="w-10 h-10 object-contain"
+              />
+
+              {/* Text Section */}
+              <div className="flex flex-col">
+                <h1 className="text-xl font-bold text-primary-700 leading-none">
+                  Ummed
+                </h1>
+                <p className="text-xs text-slate-500 mt-1">
+                  {user?.memberId}
+                </p>
+              </div>
+
+            </div>
           </div>
           <nav className="flex-1 overflow-y-auto p-3 space-y-1">
             {navItems.map((item) =>
