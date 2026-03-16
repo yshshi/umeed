@@ -7,8 +7,10 @@ export default function BusinessSelf() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-slate-800">Business - Self</h1>
-      <div className="bg-white rounded-xl shadow-soft border border-slate-200/80 p-6 max-w-2xl">
+      <div className="page-card p-5">
+        <h1 className="text-2xl font-bold text-slate-800">Business - Self</h1>
+      </div>
+      <div className="page-card p-6 max-w-2xl">
         <div className="space-y-4">
           <div>
             <p className="text-sm text-slate-500">Selected Business</p>

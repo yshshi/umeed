@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import api from '../services/api';
 import { useToast } from '../context/ToastContext';
-
-const BUSINESS_TYPES = ['Beautician Training', 'Kutir Udhyog', 'Loan Assistance', 'Insurance Awareness', 'Marketing Support', 'Ayurved Focus','Real Estate Guidance','Hospital Support','Tour & Travel','Government Schemes'];
+import { BUSINESS_TYPES, BUSINESS_TYPE_SELECTABLE } from '../utils/constants';
 
 export default function Registration() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [mobile, setMobile] = useState('');
   const [password, setPassword] = useState('');
-  const [businessType, setBusinessType] = useState(BUSINESS_TYPES[0]);
+  const [businessType, setBusinessType] = useState(BUSINESS_TYPE_SELECTABLE);
   const [loading, setLoading] = useState(false);
   const { addToast } = useToast();
 
@@ -46,9 +45,11 @@ export default function Registration() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-slate-800">Register New Member</h1>
-      <p className="text-slate-600">New member will be added under your referral. Parent will be auto-assigned.</p>
-      <div className="bg-white rounded-xl shadow-soft border border-slate-200/80 p-6 max-w-xl">
+      <div className="page-card p-5">
+        <h1 className="text-2xl font-bold text-slate-800">Register New Member</h1>
+        <p className="text-slate-600 mt-1">New member will be added under your referral. Parent will be auto-assigned.</p>
+      </div>
+      <div className="page-card p-6 max-w-xl">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1">Full Name *</label>
@@ -84,11 +85,11 @@ export default function Registration() {
             <label className="block text-sm font-medium text-slate-700 mb-1">Business Type *</label>
             <select
               value={businessType}
-              onChange={(e) => setBusinessType(e.target.value)}
+              onChange={(e) => e.target.value === BUSINESS_TYPE_SELECTABLE && setBusinessType(e.target.value)}
               className="w-full min-h-[48px] px-4 py-3 text-base rounded-lg border border-slate-300 focus:ring-2 focus:ring-primary-500 outline-none transition bg-white touch-manipulation"
             >
               {BUSINESS_TYPES.map((t) => (
-                <option key={t} value={t}>{t}</option>
+                <option key={t} value={t} disabled={t !== BUSINESS_TYPE_SELECTABLE}>{t}</option>
               ))}
             </select>
           </div>

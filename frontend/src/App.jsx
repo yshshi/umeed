@@ -4,6 +4,7 @@ import { useAuth } from './context/AuthContext';
 
 import Login from './pages/Login';
 import Register from './pages/Register';
+import RegistrationSuccess from './pages/RegistrationSuccess';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import BusinessSelf from './pages/BusinessSelf';
@@ -19,7 +20,7 @@ function ProtectedRoute({ children, adminOnly }) {
   const { user, loading } = useAuth();
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-100">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100">
         <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-500 border-t-transparent" />
       </div>
     );
@@ -33,7 +34,7 @@ function PublicOnly({ children }) {
   const { user, loading } = useAuth();
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-100">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100">
         <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-500 border-t-transparent" />
       </div>
     );
@@ -47,6 +48,7 @@ export default function App() {
     <Routes>
       <Route path="/login" element={<PublicOnly><Login /></PublicOnly>} />
       <Route path="/register" element={<PublicOnly><Register /></PublicOnly>} />
+      <Route path="/registration-success" element={<RegistrationSuccess />} />
       <Route
         path="/"
         element={

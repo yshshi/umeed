@@ -29,10 +29,10 @@ export default function DashboardLayout() {
   };
 
   return (
-    <div className="min-h-screen flex bg-slate-50">
+    <div className="min-h-screen flex">
       {/* Sidebar */}
       <aside
-        className={`fixed lg:static inset-y-0 left-0 z-40 w-64 max-w-[85vw] bg-white/95 backdrop-blur-md border-r border-slate-200 shadow-soft transform transition-transform duration-200 ease-out overflow-y-auto ${
+        className={`fixed lg:static inset-y-0 left-0 z-40 w-64 max-w-[85vw] bg-white/85 backdrop-blur-xl border-r border-white/50 shadow-card transform transition-transform duration-200 ease-out overflow-y-auto ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
@@ -50,7 +50,7 @@ export default function DashboardLayout() {
               {/* Text Section */}
               <div className="flex flex-col">
                 <h1 className="text-xl font-bold text-primary-700 leading-none">
-                  Ummed
+                  Umeed
                 </h1>
                 <p className="text-xs text-slate-500 mt-1">
                   {user?.memberId}
@@ -142,7 +142,7 @@ export default function DashboardLayout() {
 
       {/* Main */}
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="sticky top-0 z-30 flex items-center gap-4 bg-white/80 backdrop-blur-md border-b border-slate-200 px-4 py-3 lg:px-6">
+        <header className="sticky top-0 z-30 flex items-center gap-4 bg-white/80 backdrop-blur-xl border-b border-white/50 shadow-sm px-4 py-3 lg:px-6">
           <button
             type="button"
             className="lg:hidden p-2 rounded-lg hover:bg-slate-100"
@@ -160,7 +160,7 @@ export default function DashboardLayout() {
             </span>
           </Link>
         </header>
-        <main className="flex-1 p-4 lg:p-6 overflow-auto">
+        <main className="flex-1 p-4 lg:p-6 overflow-auto min-h-[calc(100vh-4rem)]">
           <Outlet />
         </main>
       </div>

@@ -31,11 +31,13 @@ export default function Commission() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-slate-800">Commission History</h1>
-      <div className="bg-white rounded-xl shadow-soft border border-slate-200/80 overflow-hidden">
+      <div className="page-card p-5">
+        <h1 className="text-2xl font-bold text-slate-800">Commission History</h1>
+      </div>
+      <div className="page-card overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-slate-50 border-b border-slate-200">
+            <thead className="bg-gradient-to-r from-primary-50 to-indigo-50 border-b border-slate-200">
               <tr>
                 <th className="text-left px-4 py-3 text-sm font-semibold text-slate-700">Date</th>
                 <th className="text-left px-4 py-3 text-sm font-semibold text-slate-700">From User</th>

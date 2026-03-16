@@ -3,7 +3,20 @@
 @tailwind utilities;
 
 body {
-  @apply bg-slate-50 text-slate-800 antialiased;
+  @apply text-slate-800 antialiased;
+  background: linear-gradient(160deg, #c7d2fe 0%, #e0e7ff 15%, #f5f3ff 30%, #ede9fe 45%, #fce7f3 60%, #e0f2fe 75%, #cffafe 90%, #ddd6fe 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Page content area - consistent card style for all app pages */
+@layer components {
+  .page-card {
+    @apply bg-white/90 backdrop-blur-sm rounded-2xl border border-white/60 shadow-lg shadow-slate-200/50;
+  }
+  .page-card-hover {
+    @apply page-card transition-all duration-200 hover:shadow-xl hover:border-white/80 hover:bg-white/95;
+  }
 }
 
 /* Scrollbar */
@@ -12,10 +25,10 @@ body {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  @apply bg-slate-100 rounded;
+  @apply bg-white/50 rounded-full;
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-primary-300 rounded;
+  @apply bg-primary-300 rounded-full;
 }
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-primary-400;

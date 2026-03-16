@@ -28,9 +28,9 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-white to-indigo-50 p-4">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-indigo-400 via-purple-300 to-pink-300">
       <div className="w-full max-w-md">
-        <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-soft border border-slate-200/80 p-8">
+        <div className="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-white/50 p-8">
           <div className="p-4 border-b border-slate-200">
             <div className="flex items-center justify-center">
 
@@ -42,7 +42,7 @@ export default function Login() {
               />
               <div className="flex flex-col">
                 <h1 className="text-xl font-bold text-primary-700 leading-none">
-                  UMMED
+                  UMEED
                 </h1>
               </div>
 
@@ -56,7 +56,7 @@ export default function Login() {
                 type="text"
                 value={memberId}
                 onChange={(e) => setMemberId(e.target.value)}
-                placeholder="e.g. NM10001"
+                placeholder="e.g. UM10001"
                 className="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition"
                 autoComplete="username"
               />

@@ -72,8 +72,8 @@ node scripts/seed.js
 ```
 
 This creates:
-- Admin: `admin@mlm.com` / Member ID: `NM10000` / Password: `admin123`
-- Sample user: `john@example.com` / `NM10001` / `password123`
+- Admin: `admin@mlm.com` / Member ID: `UM10000` / Password: `admin123`
+- Sample user: `john@example.com` / `UM10001` / `password123`
 
 ### 3. Frontend
 
@@ -100,7 +100,7 @@ App runs at `http://localhost:5173`. Vite proxies `/api` to the backend.
 ## Features
 
 - **Auth:** Register (with optional referral code), Login (Member ID + Password), JWT, protected routes
-- **Referral:** Unique referral code (same as Member ID), `/register?ref=NM10001`, parent/ancestors stored
+- **Referral:** Unique referral code (same as Member ID), `/register?ref=UM10001`, parent/ancestors stored
 - **Dashboard:** Welcome, Member ID, level, dates, business, member counts, income, wallet, referral link with copy
 - **Profile:** Edit personal, address, family, bank details
 - **Business:** Self (business type, joining date, income); Team (recursive tree, click to load subtree)

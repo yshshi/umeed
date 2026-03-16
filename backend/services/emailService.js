@@ -36,7 +36,7 @@ const sendMail = async (options) => {
 const sendWelcomeEmail = async (user) => {
   await sendMail({
     to: user.email,
-    subject: 'Welcome to Ummed',
+    subject: 'Welcome to Umeed',
     html: `
       <h2>Welcome, ${user.name}!</h2>
       <p>Your Member ID: <strong>${user.memberId}</strong></p>

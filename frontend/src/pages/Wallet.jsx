@@ -32,28 +32,37 @@ export default function Wallet() {
     );
   }
 
+  const walletBalance = user?.walletBalance ?? 0;
+  const totalIncome = user?.totalIncome ?? 0;
+  const totalBonus = totalIncome + walletBalance;
+
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-slate-800">Wallet</h1>
+      <div className="page-card p-5">
+        <h1 className="text-2xl font-bold text-slate-800">Wallet</h1>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-white rounded-xl shadow-soft border border-slate-200/80 p-5">
+        <div className="page-card-hover p-5">
           <p className="text-sm text-slate-500">Wallet Balance</p>
-          <p className="text-2xl font-bold text-primary-600">{formatCurrency(user?.walletBalance)}</p>
+          <p className="text-slate-600 text-xs mt-0.5">Current available balance</p>
+          <p className="text-2xl font-bold text-primary-600 mt-1">{formatCurrency(walletBalance)}</p>
         </div>
-        <div className="bg-white rounded-xl shadow-soft border border-slate-200/80 p-5">
+        <div className="page-card-hover p-5">
           <p className="text-sm text-slate-500">Total Income</p>
-          <p className="text-2xl font-bold text-emerald-600">{formatCurrency(user?.totalIncome)}</p>
+          <p className="text-slate-600 text-xs mt-0.5">Total transfer amount</p>
+          <p className="text-2xl font-bold text-emerald-600 mt-1">{formatCurrency(totalIncome)}</p>
         </div>
-        <div className="bg-white rounded-xl shadow-soft border border-slate-200/80 p-5">
+        <div className="page-card-hover p-5">
           <p className="text-sm text-slate-500">Total Bonus</p>
-          <p className="text-2xl font-bold text-slate-800">{formatCurrency(user?.totalBonus)}</p>
+          <p className="text-slate-600 text-xs mt-0.5">Total Income + Wallet Balance</p>
+          <p className="text-2xl font-bold text-slate-800 mt-1">{formatCurrency(totalBonus)}</p>
         </div>
       </div>
-      <div className="bg-white rounded-xl shadow-soft border border-slate-200/80 overflow-hidden">
-        <h2 className="px-4 py-3 text-lg font-semibold text-slate-800 border-b border-slate-200">Transaction History</h2>
+      <div className="page-card overflow-hidden">
+        <h2 className="px-4 py-3 text-lg font-semibold text-slate-800 border-b border-slate-200/80 bg-white/50">History (Commission &amp; transfer)</h2>
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-slate-50 border-b border-slate-200">
+            <thead className="bg-gradient-to-r from-primary-50 to-indigo-50 border-b border-slate-200">
               <tr>
                 <th className="text-left px-4 py-3 text-sm font-semibold text-slate-700">Date</th>
                 <th className="text-left px-4 py-3 text-sm font-semibold text-slate-700">Type</th>

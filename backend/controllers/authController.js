@@ -10,12 +10,18 @@ const JWT_EXPIRE = process.env.JWT_EXPIRE || '7d';
 
 const generateToken = (id) => jwt.sign({ id }, JWT_SECRET, { expiresIn: JWT_EXPIRE });
 
+const ALLOWED_BUSINESS_TYPE = 'Gullak Plan';
+
 /**
  * Register new user. Referral from query ref or body referralCode.
  * parentId and level set from referrer. ancestors built for tree.
  */
 exports.register = async (req, res, next) => {
   try {
+    const businessType = (req.body.businessType || '').trim();
+    if (businessType !== ALLOWED_BUSINESS_TYPE) {
+      return res.status(400).json({ success: false, message: 'Only Gullak Plan is available for registration.' });
+    }
     const ref = req.body.referralCode || req.query.ref;
     let parent = null;
     if (ref) {
@@ -39,7 +45,7 @@ exports.register = async (req, res, next) => {
       referralCode,
       parentId: parent?._id || null,
       level,
-      businessType: req.body.businessType.trim(),
+      businessType,
       ancestors,
     });
 
@@ -62,7 +68,7 @@ exports.register = async (req, res, next) => {
     });
   } catch (err) {
     if (err.code === 11000) {
-      return res.status(400).json({ success: false, message: 'Email or member ID already exists.' });
+      return res.status(400).json({ success: false, message: 'Member ID already exists. Please try again.' });
     }
     next(err);
   }
@@ -73,17 +79,42 @@ exports.register = async (req, res, next) => {
  */
 exports.login = async (req, res, next) => {
   try {
-    const user = await User.findOne({ memberId: req.body.memberId.toUpperCase().trim() }).select('+password');
-    if (!user || !(await user.comparePassword(req.body.password))) {
+    console.log("Login request received:", req.body);
+
+    const memberId = req.body.memberId?.toUpperCase().trim();
+    console.log("Formatted Member ID:", memberId);
+
+    const user = await User.findOne({ memberId }).select('+password');
+    console.log("User found:", user ? user._id : "No user found");
+
+    if (!user) {
+      console.log("Login failed: User not found");
       return res.status(401).json({ success: false, message: 'Invalid Member ID or password.' });
     }
+
+    const isPasswordValid = await user.comparePassword(req.body.password);
+    console.log("Password valid:", isPasswordValid);
+
+    if (!isPasswordValid) {
+      console.log("Login failed: Invalid password");
+      return res.status(401).json({ success: false, message: 'Invalid Member ID or password.' });
+    }
+
     if (!user.isActive) {
+      console.log("Login failed: Account deactivated for user:", user._id);
       return res.status(403).json({ success: false, message: 'Account is deactivated.' });
     }
+
     const token = generateToken(user._id);
+    console.log("Token generated for user:", user._id);
+
     const userResponse = await User.findById(user._id).select('-password').lean();
+    console.log("User response prepared");
+
     res.json({ success: true, token, user: userResponse });
+
   } catch (err) {
+    console.error("Login error:", err);
     next(err);
   }
 };
